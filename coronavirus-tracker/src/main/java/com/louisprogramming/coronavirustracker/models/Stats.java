@@ -4,6 +4,7 @@ public class Stats {
     private String country;
     private String state;
     private int latestConfirmedCases;
+    private int diffFromPreviousDay;
 
     public String getCountry() {
         return country;
@@ -27,6 +28,14 @@ public class Stats {
 
     public void setLatestConfirmedCases(int latestConfirmedCases) {
         this.latestConfirmedCases = latestConfirmedCases;
+    }
+
+    public int getDiffFromPreviousDay() {
+        return diffFromPreviousDay;
+    }
+
+    public void setDiffFromPreviousDay(int diffFromPreviousDay) {
+        this.diffFromPreviousDay = diffFromPreviousDay;
     }
 
     @Override

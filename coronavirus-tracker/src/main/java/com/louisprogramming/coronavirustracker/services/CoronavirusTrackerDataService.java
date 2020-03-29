@@ -20,7 +20,15 @@ import java.util.List;
 public class CoronavirusTrackerDataService {
 
     // It is not a very good practice to have state inside another spring serivce, but this is just a simulation, so I would leave this as is.
-    List<Stats> stats = new ArrayList<>();
+    private List<Stats> stats = new ArrayList<>();
+
+    public List<Stats> getStats() {
+        return stats;
+    }
+
+    public void setStats(List<Stats> stats) {
+        this.stats = stats;
+    }
 
     private static String url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
@@ -42,15 +50,14 @@ public class CoronavirusTrackerDataService {
             String country = record.get("Country/Region");
             String state = record.get("Province/State");
             int latestConfirmedCases = Integer.parseInt(record.get(record.size()-1));
+            int prevConfirmedCases = Integer.parseInt(record.get(record.size()-2));
 
             Stats stat = new Stats();
             stat.setCountry(country);
             stat.setState(state);
             stat.setLatestConfirmedCases(latestConfirmedCases);
-
-            System.out.println(stat);
+            stat.setDiffFromPreviousDay(latestConfirmedCases - prevConfirmedCases);
             newStats.add(stat);
-
         }
 
         this.stats = newStats;
